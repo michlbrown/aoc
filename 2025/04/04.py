@@ -1,4 +1,4 @@
-def is_accessible(grid: list[str], row: int, col: int):
+def is_accessible(grid: list[list[str]], row: int, col: int):
     MAX_ADJACENT = 4
     num_adjacent = 0
 
@@ -10,7 +10,7 @@ def is_accessible(grid: list[str], row: int, col: int):
     return num_adjacent < MAX_ADJACENT
 
 
-def part1(grid: list[str]):
+def part1(grid: list[list[str]]):
     accessible_rolls = 0
 
     for i, row in enumerate(grid):
@@ -23,5 +23,6 @@ def part1(grid: list[str]):
 
 with open("input.txt") as f:
     contents = [line.rstrip() for line in f.readlines()]
+    contents = [list(row) for row in contents]
 
 print(part1(contents))
