@@ -32,6 +32,15 @@ def part1(fresh_ranges: list[tuple[int, int]], ingredients: list[int]):
     return num_fresh
 
 
+def part2(fresh_ranges):
+    fresh_ranges = merge_ranges(fresh_ranges)
+    total = 0
+    for range in fresh_ranges:
+        total += range[1] - range[0] + 1
+
+    return total
+
+
 first: list[str] = []
 second: list[str] = []
 
@@ -52,3 +61,4 @@ for line in first:
 ingredients = [int(line) for line in second]
 
 print(part1(fresh_ranges, ingredients))
+print(part2(fresh_ranges))
