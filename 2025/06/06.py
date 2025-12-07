@@ -20,6 +20,6 @@ def part1(contents: list[str]):
 
 
 with open("input.txt") as f:
-    contents = [line.rstrip() for line in f]
+    contents = [line for line in f]
 
 part1(contents)
