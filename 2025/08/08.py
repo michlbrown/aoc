@@ -56,7 +56,28 @@ def part1(points: list[Point]):
     print(sizes[0] * sizes[1] * sizes[2])
 
 
+def part2(points: list[Point]):
+    n = len(points)
+    components = n
+    pair_dists = []
+    for (i, p1), (j, p2) in combinations(enumerate(points), 2):
+        d = dist(p1, p2)
+        pair_dists.append(PairDist(i, j, d))
+
+    pair_dists.sort(key=lambda p: p.dist)
+    dsu = DSU(n)
+
+    for i, j, _ in pair_dists:
+        if dsu.union(i, j):
+            components -= 1
+
+        if components == 1:
+            print(points[i].x * points[j].x)
+            break
+
+
 with open("input.txt") as f:
     contents = [Point(*map(int, line.rstrip().split(","))) for line in f]
 
 part1(contents)
+part2(contents)
