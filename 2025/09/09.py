@@ -1,18 +1,32 @@
+from dataclasses import dataclass
 from itertools import combinations
 
 
-def part1(points):
-    areas = []
-    for (x1, y1), (x2, y2) in combinations(points, 2):
-        width = abs(x2 - x1) + 1
-        height = abs(y2 - y1) + 1
-        areas.append(width * height)
-
-    print(sorted(areas, reverse=True)[0])
+@dataclass
+class Point:
+    x: int
+    y: int
 
 
-with open("input.txt") as f:
+@dataclass
+class Rect:
+    a: Point
+    b: Point
+
+    def area(self) -> int:
+        width = abs(self.a.x - self.b.x) + 1
+        height = abs(self.a.y - self.b.y) + 1
+        return width * height
+
+
+def part1(points: list[Point]):
+    rects = [Rect(a, b) for a, b in combinations(points, 2)]
+    rects.sort(key=lambda r: r.area(), reverse=True)
+    print(rects[0].area())
+
+
+with open("example.txt") as f:
     points = [line.rstrip().split(",") for line in f]
-    points = [tuple(map(int, point)) for point in points]
+    points = [Point(*map(int, point)) for point in points]
 
 part1(points)
